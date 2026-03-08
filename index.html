@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>8 Марта - День Женщины</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fce7f3 0%, #f3e8ff 50%, #fce7f3 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Particles background */
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, #fcd34d, #f3e8ff);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-50px) translateX(20px);
+                opacity: 0.3;
+            }
+        }
+
+        /* Falling flowers */
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .flower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            pointer-events: none;
+            animation: fall linear infinite;
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Page styles */
+        .page {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: fadeIn 0.8s ease-in;
+            text-align: center;
+        }
+
+        /* Page 1 - Start */
+        .page-1 {
+            background: linear-gradient(135deg, rgba(252, 231, 243, 0.95), rgba(243, 232, 255, 0.95));
+        }
+
+        .page-1 h1 {
+            font-size: 3.8rem;
+            color: #d946a6;
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            line-height: 1.1;
+            text-shadow: 0 2px 10px rgba(217, 70, 166, 0.1);
+        }
+
+        .number-8 {
+            cursor: pointer;
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .number-8:hover {
+            background: rgba(217, 70, 166, 0.15);
+            transform: scale(1.08) rotate(5deg);
+        }
+
+        .number-8::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #d946a6;
+            border-radius: 10px;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.5;
+            }
+        }
+
+        .page-1 .subtitle {
+            font-size: 1.5rem;
+            color: #a855f7;
+            margin-bottom: 60px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #d946a6 0%, #a855f7 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(217, 70, 166, 0.3);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            -webkit-appearance: none;
+            appearance: none;
+            min-height: 50px;
+            touch-action: manipulation;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Page 2 - Greeting */
+        .page-2 {
+            background: linear-gradient(135deg, rgba(252, 231, 243, 0.98), rgba(243, 232, 255, 0.98));
+            overflow-y: auto;
+            padding-bottom: 40px;
+            padding-top: 40px;
+            justify-content: flex-start;
+        }
+
+        .page-2 h2 {
+            font-size: 2.5rem;
+            color: #d946a6;
+            margin-bottom: 30px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 8px rgba(217, 70, 166, 0.1);
+        }
+
+        .gif-container {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .gif-container img {
+            width: 85%;
+            max-width: 350px;
+            height: auto;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(217, 70, 166, 0.25);
+            border: 3px solid #fcd34d;
+            transition: all 0.3s ease;
+        }
+
+        .gif-container img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 50px rgba(217, 70, 166, 0.35);
+        }
+
+        .greeting-text {
+            font-size: 1.1rem;
+            color: #6b21a8;
+            line-height: 1.9;
+            margin: 30px auto;
+            font-weight: 300;
+            padding: 0 15px;
+            max-width: 500px;
+        }
+
+        /* Page 3 - Photo and Message */
+        .page-3 {
+            background: linear-gradient(135deg, rgba(252, 231, 243, 0.98), rgba(243, 232, 255, 0.98));
+            overflow-y: auto;
+            padding-bottom: 40px;
+            padding-top: 20px;
+            justify-content: flex-start;
+        }
+
+        .photo-container {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        .photo-container img {
+            width: 90%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(217, 70, 166, 0.25);
+            border: 5px solid #fcd34d;
+            transition: all 0.3s ease;
+        }
+
+        .photo-container img:hover {
+            transform: scale(1.01);
+            box-shadow: 0 20px 50px rgba(217, 70, 166, 0.35);
+        }
+
+        .message-text {
+            font-size: 1.05rem;
+            color: #6b21a8;
+            line-height: 1.9;
+            margin: 25px auto;
+            font-weight: 300;
+            padding: 0 15px;
+            max-width: 500px;
+        }
+
+        .btn-back {
+            margin-top: 30px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Music toggle */
+        .music-toggle {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #d946a6, #a855f7);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            color: white;
+            font-size: 1.6rem;
+            box-shadow: 0 8px 25px rgba(217, 70, 166, 0.35);
+            transition: all 0.3s ease;
+            z-index: 100;
+            -webkit-appearance: none;
+            appearance: none;
+            min-height: 55px;
+            min-width: 55px;
+            touch-action: manipulation;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .music-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 35px rgba(217, 70, 166, 0.4);
+        }
+
+        .music-toggle:active {
+            transform: scale(0.95);
+        }
+
+        /* Responsive */
+        @media (max-height: 600px) {
+            .page-1 h1 {
+                font-size: 2.5rem;
+                margin-bottom: 10px;
+            }
+
+            .page-1 .subtitle {
+                font-size: 1.2rem;
+                margin-bottom: 30px;
+            }
+
+            .btn {
+                padding: 14px 40px;
+                font-size: 1rem;
+            }
+
+            .page {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .page-1 h1 {
+                font-size: 2.8rem;
+            }
+
+            .page-1 .subtitle {
+                font-size: 1.3rem;
+            }
+
+            .btn {
+                padding: 15px 35px;
+                font-size: 1.05rem;
+            }
+
+            .page-2 h2,
+            .page-3 h2 {
+                font-size: 1.9rem;
+            }
+
+            .greeting-text,
+            .message-text {
+                font-size: 1rem;
+            }
+
+            .gif-container img,
+            .photo-container img {
+                border-radius: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <!-- Page 1 -->
+    <div class="container">
+        <div class="page page-1" id="page1">
+            <h1>Праздник <span class="number-8" id="eightBtn">8</span> марта</h1>
+            <p class="subtitle">День Женщины</p>
+            <button class="btn" onclick="goToPage(2)">Давайте начнём! ✨</button>
+        </div>
+
+        <!-- Page 2 -->
+        <div class="page page-2 hidden" id="page2">
+            <h2>Поздравляю! 💐</h2>
+            <div class="gif-container">
+                <img src="https://media.giphy.com/media/l0HlMZbKS2Dm8qvDO/giphy.gif" alt="Cute cat with flowers">
+            </div>
+            <p class="greeting-text">
+                В этот прекрасный день 8 марта хочу поздравить тебя с праздником весны, любви и красоты. Ты достойна всего самого лучшего в этом мире! 🌹
+            </p>
+            <button class="btn" onclick="goToPage(3)">Посмотреть фото 💕</button>
+        </div>
+
+        <!-- Page 3 -->
+        <div class="page page-3 hidden" id="page3">
+            <div class="photo-container">
+                <img src="photo.jpg" alt="Our special moment">
+            </div>
+            <p class="message-text">
+                Родная моя, поздравляю тебя с 21-летием! Пусть этот год принесёт тебе ещё больше радости, вдохновения и невероятных моментов. Ты удивительная, насколько невозможно описать словами. и я счастлив что в моей жизни есть такой человек. Желаю тебе исполнения всех мечтаний, новых открытий и бесконечного счастья. Пусть твоя жизнь будет такой же яркой и волшебной, как полярное сияние ✨💕
+            </p>
+            <button class="btn btn-back" onclick="goToPage(1)">Вернуться 🏠</button>
+        </div>
+    </div>
+
+    <button class="music-toggle" id="musicToggle">🔊</button>
+
+    <script>
+        // Create particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Create falling flowers
+        function createFlower() {
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            flower.textContent = ['🌸', '🌹', '🌺', '💐', '🌻'][Math.floor(Math.random() * 5)];
+            flower.style.left = Math.random() * 100 + '%';
+            const duration = Math.random() * 3 + 4;
+            flower.style.animationDuration = duration + 's';
+            flower.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(flower);
+
+            setTimeout(() => flower.remove(), (duration + 2) * 1000);
+        }
+
+        // Initialize
+        createParticles();
+        setInterval(createFlower, 500);
+
+        // Prevent zoom
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+
+        // Page navigation
+        function goToPage(pageNum) {
+            document.getElementById('page1').classList.add('hidden');
+            document.getElementById('page2').classList.add('hidden');
+            document.getElementById('page3').classList.add('hidden');
+
+            document.getElementById('page' + pageNum).classList.remove('hidden');
+            
+            if (pageNum === 2 || pageNum === 3) {
+                startAudio();
+            }
+        }
+
+        // Click on number 8
+        document.getElementById('eightBtn').addEventListener('click', function() {
+            goToPage(2);
+        });
+
+        // Background music
+        let audio = null;
+        let audioStarted = false;
+        let isMusicPlaying = false;
+
+        function initAudio() {
+            if (!audio) {
+                audio = new Audio('romantic_piano.mp3');
+                audio.loop = true;
+                audio.volume = 0.25;
+            }
+        }
+
+        function startAudio() {
+            initAudio();
+            if (!audioStarted) {
+                audio.play().catch(err => console.log('Audio autoplay prevented'));
+                audioStarted = true;
+                isMusicPlaying = true;
+                updateMusicButton();
+            }
+        }
+
+        function toggleMusic() {
+            initAudio();
+            if (isMusicPlaying) {
+                audio.pause();
+                isMusicPlaying = false;
+            } else {
+                audio.play();
+                isMusicPlaying = true;
+            }
+            updateMusicButton();
+        }
+
+        function updateMusicButton() {
+            const btn = document.getElementById('musicToggle');
+            btn.textContent = isMusicPlaying ? '🔊' : '🔇';
+        }
+
+        // Music toggle button
+        document.getElementById('musicToggle').addEventListener('click', toggleMusic);
+
+        // Start audio on first interaction
+        document.addEventListener('click', startAudio, { once: true });
+        document.addEventListener('touchstart', startAudio, { once: true });
+    </script>
+</body>
+</html>
